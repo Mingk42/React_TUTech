@@ -45,8 +45,23 @@ function ExclusiveBy() {
     const loadData = async () => {
         await axios.get(`http://${process.env.REACT_APP_HOST}:8000/exclusive/main`)
             .then(res => res.data)
+            .then(data =>{
+                console.log(data)
+                return data
+            })
             .then(data => {
-                setData(data);
+                /***** 기존 데이터와 동일한 형태로 변환 ********/
+                let data_transform=[]
+                for(let i=0;i<3;i++){
+                    data_transform.push({
+                        "_id":i+1,
+                        "items":data[i]
+                    })
+                }
+                setData(data_transform)
+                /***** 기존 데이터와 동일한 형태로 변환 끝 *******/
+
+                //setData(data);
                 setIsLoading(false);
 
                 /***** banner fetch save ************/
@@ -176,15 +191,17 @@ function ExclusiveBy() {
         : (<div className={"mainSection"} id={"exclusive"}>
             <h3>예매처별 단독판매</h3>
             <div className={"selectBtnContainer"}>
-                {data.map(i => {
-                    return <div key={uuidv4()}>
-                        <input type="radio" className="mainRadio exclusiveChk" name="exclusiveChk"
-                               id={id2host[i["_id"].toString()]} autoComplete="off"
-                               onChange={() => switchMenu(id2host[i["_id"].toString()])}/>
-                        <label className="mainRadioLabel exclusiveChkLabel"
-                               htmlFor={id2host[i["_id"].toString()]}>{ticketHost[i["_id"].toString()]}</label>
-                    </div>
-                })}
+                {
+                    data.map(i => {
+                        return <div key={uuidv4()}>
+                            <input type="radio" className="mainRadio exclusiveChk" name="exclusiveChk"
+                                   id={id2host[i["_id"].toString()]} autoComplete="off"
+                                   onChange={() => switchMenu(id2host[i["_id"].toString()])}/>
+                            <label className="mainRadioLabel exclusiveChkLabel"
+                                   htmlFor={id2host[i["_id"].toString()]}>{ticketHost[i["_id"].toString()]}</label>
+                        </div>
+                    })
+                }
             </div>
             <div className="mainEntryContainer">
 
