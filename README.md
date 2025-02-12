@@ -1,4 +1,11 @@
-# TicketMoa
+# React_TUTech
+
+파이널 프로젝트 레포에서 포크해서 개선중입니다.
+
+아래는 파이널 프로젝트 레포 README입니다.
+
+---
+# [TicketMoa](https://github.com/Team1-TU-tech/react)
 
 ### Description
 > TicketMoa의 front-end를 담당하는 application입니다.
